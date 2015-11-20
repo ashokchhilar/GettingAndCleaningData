@@ -7,25 +7,30 @@ output: html_document
 
 # CodeBook
 
-The file tidydataset.txt contains the tidy data set prepared for Coursera Assigment. 
-
-  This is a modified subset of the original data set which can be obtained from 
-https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip 
-  A full description of original dataset can be obtained at 
+The file tidydataset.txt contains the tidy data set prepared for Coursera Assigment.  
+  
+This is a modified subset of the original data set which can be obtained from 
+https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip  
+A full description of original dataset can be obtained at 
 http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones 
 
 
-  This tidy data set contains rows, each having values only for the mean and standard deviation of the feature set described in feature_info.txt of original dataset.
+## Dataset Description  
+
+* Column 1: Suject_id is to identify the subject whose movements were measured
+* COlumn 2: Activity is the Name of the activity that was performed at the time of measurement
+* Columns 3:68 are Average and Standard Deviations of the feature sets desribed in original dataset.
   
-  Naming convention of Columns is available in feature_info.txt of original dataset. 
   
-  Summary of Naming Convention
-  '-XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
-  prefix 't' denotes time domain
-  prefix 'f' denotes frequency domain (obtained by applying a Fourier Transformation to some of the Signals )
+Naming convention of features is available in feature_info.txt of original dataset.  
+  
+### Summary of Naming Convention  
+* -XYZ is used to denote 3-axial signals in the X, Y and Z directions.
+* prefix 't' denotes time domain
+* prefix 'f' denotes frequency domain (obtained by applying a Fourier Transformation to some of the Signals )
 
 
-## Following is feature list
+## Feature list
   
 * tBodyAcc-XYZ
 * tGravityAcc-XYZ
@@ -50,7 +55,7 @@ http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartpho
 * mean(): Mean value
 * std(): Standard deviation
 
-## Available list of columns
+## Available list of Columns
 ```{r echo=FALSE}
 dt <- read.table("tidydataset.txt", header = TRUE, check.names = FALSE)
 names(dt)
