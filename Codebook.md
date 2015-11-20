@@ -17,10 +17,40 @@ http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartpho
 
   This tidy data set contains rows, each having values only for the mean and standard deviation of the feature set described in feature_info.txt of original dataset.
   
-  Naming convention of Columns is available in feature_info.txt of original dataset. This tidy dataset also adheres to same naming convention.
-'-XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
+  Naming convention of Columns is available in feature_info.txt of original dataset. 
+  
+  Summary of Naming Convention
+  '-XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
+  prefix 't' denotes time domain
+  prefix 'f' denotes frequency domain (obtained by applying a Fourier Transformation to some of the Signals )
 
-  Available list of columns
+
+## Following is feature list
+  
+* tBodyAcc-XYZ
+* tGravityAcc-XYZ
+* tBodyAccJerk-XYZ
+* tBodyGyro-XYZ
+* tBodyGyroJerk-XYZ
+* tBodyAccMag
+* tGravityAccMag
+* tBodyAccJerkMag
+* tBodyGyroMag
+* tBodyGyroJerkMag
+* fBodyAcc-XYZ
+* fBodyAccJerk-XYZ
+* fBodyGyro-XYZ
+* fBodyAccMag
+* fBodyAccJerkMag
+* fBodyGyroMag
+* fBodyGyroJerkMag
+
+### The set of variables that were estimated from these signals are: 
+
+* mean(): Mean value
+* std(): Standard deviation
+
+## Available list of columns
 
 ```
 ##  [1] "subject_id"                  "Activity"                   
@@ -58,6 +88,7 @@ http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartpho
 ## [65] "fBodyBodyGyroMag-mean()"     "fBodyBodyGyroMag-std()"     
 ## [67] "fBodyBodyGyroJerkMag-mean()" "fBodyBodyGyroJerkMag-std()"
 ```
+
 
 Dimensions
 
