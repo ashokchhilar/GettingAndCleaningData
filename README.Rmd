@@ -1,0 +1,89 @@
+---
+title: "README"
+author: "Ashok"
+date: "November 20, 2015"
+output: html_document
+---
+
+# Run_Analysis.R Explained
+
+Include the libraries
+```{r}
+require("dplyr")
+```
+
+read the file and list down the files
+```{r echo=TRUE}
+options(width = 250)
+targetfile<-"getdata-projectfiles-UCI HAR Dataset.zip"
+
+#list the files in the zip
+unzip(targetfile, list = TRUE)
+```
+
+Read the test set and training set files
+```{r echo=TRUE}
+y_test <- read.table(unz(targetfile, "UCI HAR Dataset/test/y_test.txt"))
+x_test <- read.table(unz(targetfile, "UCI HAR Dataset/test/X_test.txt"))
+y_train <- read.table(unz(targetfile, "UCI HAR Dataset/train/y_train.txt"))
+x_train <- read.table(unz(targetfile, "UCI HAR Dataset/train/X_train.txt"))
+
+subject_test <- read.table(unz(targetfile, "UCI HAR Dataset/test/subject_test.txt"))
+subject_train <- read.table(unz(targetfile, "UCI HAR Dataset/train/subject_train.txt"))
+
+features <- read.table(unz(targetfile, "UCI HAR Dataset/features.txt"))
+activity_labels <- read.table(unz(targetfile, "UCI HAR Dataset/activity_labels.txt"))
+names(activity_labels)<-c('V1', 'Activity')
+```
+
+
+Combine the datasets
+```{r echo=TRUE}
+x<-rbind(x_train, x_test)
+y<-rbind(y_train, y_test)
+```
+
+Combine the subject_ids in same order 
+```{r echo=TRUE}
+subject<-rbind(subject_train, subject_test)
+```
+
+Set the names to valid varible names
+```{r echo=TRUE}
+#names(x)<-make.names(names=features[[2]], unique=TRUE, allow_ = TRUE)
+names(x)<-features[[2]]
+names(subject)<-"subject_id"
+names(activity_labels)<-c('V1','Activity')
+```
+
+Add a column with the subject ids merge them
+```{r echo=TRUE}
+dt<-cbind(subject,x)
+```
+
+Merge with activity data with labels
+```{r echo=TRUE}
+dt<-cbind(y, dt)
+dt<-merge(dt, activity_labels, by = 'V1')
+```
+
+
+Now we have all the data, need to filter as per the assignment
+```{r echo=TRUE}
+reqcols<-names(dt)[grepl(pattern = "std\\(\\)|mean\\(\\)", x = names(dt))]
+reqcols <- c(reqcols, "Activity", "subject_id")
+dt<- dt[,reqcols]
+```
+
+Create tidy data set
+```{r echo=TRUE}
+#create groups
+dt_groups <- group_by(dt, subject_id, Activity)
+
+final <- summarise_each(dt_groups, funs( mean))
+```
+
+Write the final dataset to file
+```{r echo=TRUE}
+write.table(final, file="tidydataset.txt", row.names = FALSE)
+```
